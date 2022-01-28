@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
 
-function App() {
+
+const Button = ({value, onClick}) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <button onClick={onClick}>{value}</button>
+  )
 }
 
-export default App;
+const Statistics = ({name, value}) => {
+  return (
+    <p>{name} {value}</p>
+  )
+}
+
+const App = () => {
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  const appName = "give feedback"
+
+  const handleClickGood = () => setGood(good + 1)
+  const handleClickNeutral = () => setNeutral(neutral + 1)
+  const handleClickBad = () => setBad(bad + 1)
+
+  return (
+    <div>
+      <h1>{appName}</h1>
+      <Button onClick={handleClickGood} value='good'/>
+      <Button onClick={handleClickNeutral} value='neutral'/>
+      <Button onClick={handleClickBad} value='bad'/>
+      <h1>Statistics</h1>
+      <Statistics name='good' value={good}/>
+      <Statistics name='neutral' value={neutral}/>
+      <Statistics name='bad' value={bad}/>
+
+    </div>
+  )
+}
+
+export default App
